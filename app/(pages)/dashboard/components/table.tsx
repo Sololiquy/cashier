@@ -5,14 +5,14 @@ import React, { useContext } from "react";
 import { contextModdingData } from "../context";
 
 export default function Table() {
-   const { total, setTotal, data, setData } = useContext(contextModdingData);
+   const { total, data, setData } = useContext(contextModdingData);
 
    const handleQtyChange = (id: number, delta: number) => {
-      setData((prev) => prev.map((item) => (item.id === id ? { ...item, quantity: Math.max(item.quantity + delta, 0) } : item)));
+      setData((prev: { id: number; quantity: number }[]) => prev.map((item: { id: number; quantity: number }) => (item.id === id ? { ...item, quantity: Math.max(item.quantity + delta, 1) } : item)));
    };
 
    const handleDelete = (id: number) => {
-      setData((prev) => prev.filter((item) => item.id !== id));
+      setData((prev: any[]) => prev.filter((item: { id: number }) => item.id !== id));
    };
 
    return (
@@ -31,7 +31,7 @@ export default function Table() {
                      </tr>
                   </thead>
                   <tbody>
-                     {data.map((item) => {
+                     {data.map((item: { id: number; name: string; price: number; quantity: number }) => {
                         const qty = item.quantity;
                         return (
                            <tr key={item.id}>

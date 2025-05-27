@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 
 import Table from "./components/table";
+import ProductSearch from "./components/productSearch";
 // import QRscan from "./components/QRscan";
 
 import { contextModdingData } from "./context";
@@ -14,6 +15,7 @@ export default function Dashboard() {
    ];
    const [data, setData] = useState(dummyData);
    const [total, setTotal] = useState(0);
+   const [showModal, setShowModal] = useState(false);
 
    useEffect(() => {
       const newTotal = data.reduce((sum, item) => {
@@ -22,54 +24,16 @@ export default function Dashboard() {
       setTotal(newTotal);
    }, [data]);
 
-   const getProduct = async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      const productID = e.currentTarget.productID.value;
-
-      if (data.find((item) => item.id === productID)) {
-         setData((prev) => prev.map((item) => (item.id === productID ? { ...item, quantity: item.quantity + 1 } : item)));
-      } else {
-         try {
-            const res = await fetch("/api/getProduct", {
-               method: "POST",
-               headers: {
-                  "Content-Type": "application/json",
-               },
-               body: JSON.stringify({ productID }),
-            });
-
-            const result = await res.json();
-
-            if (result.error) {
-               alert(result.error);
-            } else {
-               setData((prev) => [
-                  ...prev,
-                  {
-                     id: result.id,
-                     name: result.name,
-                     price: result.price,
-                     quantity: 1,
-                  },
-               ]);
-            }
-         } catch (error) {
-            console.error("Error fetching product:", error);
-         }
-      }
-   };
-
    return (
       <>
          <div className="flex flex-row">
             <contextModdingData.Provider value={{ total, setTotal, data, setData }}>
                <Table />
-               <form onSubmit={getProduct}>
-                  <input className={`text-white`} type="number" name="productID" required />
-                  <button className={`hover:bg-slate-600`} type="submit">
-                     Add
-                  </button>
-               </form>
+               <button onClick={() => setShowModal(true)} className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                  Open Product Search
+               </button>
+
+               {showModal && <ProductSearch setShowModal={setShowModal} />}
             </contextModdingData.Provider>
          </div>
       </>
