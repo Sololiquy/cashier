@@ -1,39 +1,18 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
+
+import { contextModdingData } from "../context";
 
 export default function Table() {
-   const dummyData = [
-      { id: 1222222, name: "Product1", price: 10000 },
-      { id: 2111111, name: "Product2", price: 5000 },
-   ];
-
-   const [total, setTotal] = useState(0);
-   const [data, setData] = useState(dummyData);
-   const [quantities, setQuantities] = useState<{ [key: number]: number }>(() => Object.fromEntries(dummyData.map((item) => [item.id, 1])));
+   const { total, setTotal, data, setData } = useContext(contextModdingData);
 
    const handleQtyChange = (id: number, delta: number) => {
-      setQuantities((prev) => ({
-         ...prev,
-         [id]: Math.max((prev[id] || 0) + delta, 0),
-      }));
+      setData((prev) => prev.map((item) => (item.id === id ? { ...item, quantity: Math.max(item.quantity + delta, 0) } : item)));
    };
-
-   useEffect(() => {
-      const newTotal = data.reduce((sum, item) => {
-         const qty = quantities[item.id] || 0;
-         return sum + item.price * qty;
-      }, 0);
-      setTotal(newTotal);
-   }, [data, quantities]);
 
    const handleDelete = (id: number) => {
       setData((prev) => prev.filter((item) => item.id !== id));
-      setQuantities((prev) => {
-         const updated = { ...prev };
-         delete updated[id];
-         return updated;
-      });
    };
 
    return (
@@ -53,7 +32,7 @@ export default function Table() {
                   </thead>
                   <tbody>
                      {data.map((item) => {
-                        const qty = quantities[item.id] || 0;
+                        const qty = item.quantity;
                         return (
                            <tr key={item.id}>
                               <td className="border px-4 py-0.5">{item.id}</td>
