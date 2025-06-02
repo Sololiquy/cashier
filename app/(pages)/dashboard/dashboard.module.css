@@ -1,0 +1,5 @@
+/* components/productList/Card */
+
+.itemQuantity {
+   @apply size-8 top-1 right-1 rounded-full absolute flex justify-center items-center;
+}

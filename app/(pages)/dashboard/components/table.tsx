@@ -5,14 +5,16 @@ import React, { useContext } from "react";
 import { contextModdingData } from "../context";
 
 export default function Table() {
-   const { total, data, setData } = useContext(contextModdingData);
+   const { total, checkout, setCheckout } = useContext(contextModdingData);
 
-   const handleQtyChange = (id: number, delta: number) => {
-      setData((prev: { id: number; quantity: number }[]) => prev.map((item: { id: number; quantity: number }) => (item.id === id ? { ...item, quantity: Math.max(item.quantity + delta, 1) } : item)));
+   const handleQtyChange = (id: string, value: number) => {
+      setCheckout((prev: any[]) =>
+         prev.map((item: { barcode_id: string; id: string; quantity: number }) => (item.barcode_id === id ? { ...item, quantity: Math.max(item.quantity + value, 1) } : item))
+      );
    };
 
-   const handleDelete = (id: number) => {
-      setData((prev: any[]) => prev.filter((item: { id: number }) => item.id !== id));
+   const handleDelete = (id: string) => {
+      setCheckout((prev: any[]) => prev.filter((item: { barcode_id: string }) => item.barcode_id !== id));
    };
 
    return (
@@ -31,21 +33,22 @@ export default function Table() {
                      </tr>
                   </thead>
                   <tbody>
-                     {data.map((item: { id: number; name: string; price: number; quantity: number }) => {
+                     {checkout.map((item: { barcode_id: string; id: string; name: string; price: number; quantity: number }) => {
                         const qty = item.quantity;
+                        console.log(typeof item.barcode_id);
                         return (
-                           <tr key={item.id}>
-                              <td className="border px-4 py-0.5">{item.id}</td>
+                           <tr key={item.barcode_id}>
+                              <td className="border px-4 py-0.5">{item.barcode_id}</td>
                               <td className="border px-4 py-0.5">{item.name}</td>
                               <td className="border px-4 py-0.5">{item.price}</td>
                               <td className="border px-4 py-0.5">
                                  <div className="flex items-center gap-3">
                                     <span>{qty}</span>
                                     <div className="flex flex-row">
-                                       <button onClick={() => handleQtyChange(item.id, -1)} className="size-5 bg-red-500 text-white">
+                                       <button onClick={() => handleQtyChange(item.barcode_id, -1)} className="size-5 bg-red-500 text-white">
                                           -
                                        </button>
-                                       <button onClick={() => handleQtyChange(item.id, 1)} className="size-5 bg-green-500 text-white">
+                                       <button onClick={() => handleQtyChange(item.barcode_id, 1)} className="size-5 bg-green-500 text-white">
                                           +
                                        </button>
                                     </div>
@@ -53,7 +56,7 @@ export default function Table() {
                               </td>
                               <td className="border px-4 py-0.5">{item.price * qty}</td>
                               <td className="border px-4 py-0.5">
-                                 <button onClick={() => handleDelete(item.id)} className="px-2 py-1 bg-gray-700 text-white rounded">
+                                 <button onClick={() => handleDelete(item.barcode_id)} className="px-2 py-1 bg-gray-700 text-white rounded">
                                     Delete
                                  </button>
                               </td>

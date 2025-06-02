@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
    --background: #ffffff;
@@ -24,6 +26,10 @@ body {
    background: var(--background);
    color: var(--foreground);
    font-family: Arial, Helvetica, sans-serif;
+}
+
+.background {
+   @apply fixed inset-0 w-full h-full z-[-100];
 }
 
 .all-center {

@@ -4,7 +4,7 @@ import React, { Dispatch, SetStateAction, useContext } from "react";
 
 //import style from "../dashboard.module.css";
 
-import { contextModdingData } from "../context";
+import { contextModdingData } from "../../context";
 
 interface parameterType {
    setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -17,8 +17,8 @@ export default function ProductSearch({ setShowModal }: parameterType) {
       e.preventDefault();
       const productID = e.currentTarget.productID.value;
 
-      if (data.find((item: { id: any }) => item.id === productID)) {
-         setData((prev: { id: any; quantity: number }[]) => prev.map((item: { id: any; quantity: number }) => (item.id === productID ? { ...item, quantity: item.quantity + 1 } : item)));
+      if (data.find((item: { id: string }) => item.id === productID)) {
+         setData((prev: { id: string; quantity: number }[]) => prev.map((item: { id: string; quantity: number }) => (item.id === productID ? { ...item, quantity: item.quantity + 1 } : item)));
       } else {
          try {
             const res = await fetch("/api/getProduct", {
@@ -53,13 +53,16 @@ export default function ProductSearch({ setShowModal }: parameterType) {
    return (
       <>
          <div className={`fixed inset-0 z-50 bg-opacity-30 backdrop-blur-md flex all-center`}>
-            <div className={`flex p-2 bg-gray-700`}>
-               <form className={`flex gap-2`} onSubmit={getProduct}>
+            <div className={`flex flex-row gap-2 `}>
+               <form className={`flex p-2 gap-2 bg-gray-700`} onSubmit={getProduct}>
                   <input className={`text-white`} type="number" name="productID" required />
                   <button className={`hover:bg-slate-600`} type="submit">
                      Add
                   </button>
                </form>
+               <button className={`p-2 bg-red-500`} onClick={() => setShowModal(false)}>
+                  close
+               </button>
             </div>
          </div>
       </>
