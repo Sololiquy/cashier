@@ -2,12 +2,12 @@
 
 import React, { useEffect, useState } from "react";
 
-import ProductSearch from "./productSearch";
+// import ProductSearch from "./productSearch";
 import Card from "./card";
 
 export default function ProductList() {
    const [product, setProduct] = useState([]);
-   const [showModal, setShowModal] = useState(false);
+   // const [showModal, setShowModal] = useState(false);
 
    useEffect(() => {
       const fetchProducts = async () => {
@@ -31,11 +31,11 @@ export default function ProductList() {
                   <Card key={index} data={item} />
                ))}
             </div>
-            <button onClick={() => setShowModal(true)} className=" px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+            {/* <button onClick={() => setShowModal(true)} className=" px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
                Open Product Search
-            </button>
+            </button> */}
          </div>
-         {showModal && <ProductSearch setShowModal={setShowModal} />}
+         {/* {showModal && <ProductSearch setShowModal={setShowModal} />} */}
       </>
    );
 }
