@@ -24,11 +24,10 @@ export default function ProductList() {
 
    return (
       <>
-         <div className={`background`}></div>
-         <div className={`w-full h-full relative bg-gray-600`}>
-            <div className={`p-3 gap-3 flex flex-row flex-wrap`}>
-               {product.map((item, index) => (
-                  <Card key={index} data={item} />
+         <div className={`w-full h-full relative `}>
+            <div className={`gap-3 flex flex-row flex-wrap`}>
+               {product.map((item: any) => (
+                  <Card key={item.barcode_id} data={item} />
                ))}
             </div>
             {/* <button onClick={() => setShowModal(true)} className=" px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">

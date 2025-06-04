@@ -41,6 +41,7 @@ export default function Card({ data }: parameterType) {
                name: data.name,
                price: data.price,
                quantity: 1,
+               imageURL: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/product/${data.url_image}`,
             },
          ]);
       }
@@ -49,14 +50,14 @@ export default function Card({ data }: parameterType) {
    const imageURL = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/product/${data.url_image}`;
    return (
       <>
-         <div className={`w-40 h-52 p-1 flex flex-col rounded-xl bg-gray-700`}>
-            <div className={`size-[152px] rounded-xl overflow-hidden relative`}>
+         <div className={`w-[200px] h-[270px] p-3 gap-1 flex flex-col rounded-xl bg-gray-700`}>
+            <div className={`size-[176px] rounded-xl overflow-hidden relative`}>
                <img className={`w-full h-full object-cover`} src={imageURL} alt="" />
                {quantity > 0 && <div className={`${style.itemQuantity} bg-red-500`}>{quantity}</div>}
             </div>
             <div className={`font-bold text-xl`}>{data.name}</div>
             <div className={`flex flex-row`}>
-               <div className="pl-3 flex flex-row">
+               <div className=" flex flex-row">
                   <button
                      onClick={quantity !== 0 ? () => handleQtyChange(data.barcode_id, -1) : undefined}
                      className={`size-5 ${quantity === 0 ? "cursor-not-allowed bg-gray-500" : "bg-red-500 text-white"}`}
@@ -67,7 +68,7 @@ export default function Card({ data }: parameterType) {
                      +
                   </button>
                </div>
-               <div className={`px-1 grow text-sm text-right`}>Rp.{data.price}</div>
+               <div className={`px-1 grow text-right`}>Rp.{data.price}</div>
             </div>
          </div>
       </>

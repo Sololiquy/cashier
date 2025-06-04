@@ -1,5 +1,26 @@
-/* components/productList/Card */
+/* checkout table css */
+.tab_image {
+   @apply w-16 h-16;
+}
+.tab_info {
+   @apply w-44 flex flex-col justify-center;
+}
+.tab_qty {
+   @apply w-10 flex items-center;
+}
+.tab_total {
+   @apply w-24 flex items-center;
+}
 
+/* components/productList/Card */
 .itemQuantity {
-   @apply size-8 top-1 right-1 rounded-full absolute flex justify-center items-center;
+   @apply size-8 top-1.5 right-1.5 rounded-full absolute flex justify-center items-center;
+}
+
+/* component/filterList/card */
+.buttonFilter {
+   @apply w-48 py-2 rounded-full flex justify-center items-center text-gray-700 text-2xl bg-gray-300 hover:bg-gray-400 active:bg-gray-500;
+}
+.buttonFilterActive {
+   @apply font-extrabold bg-white hover:bg-gray-100 active:bg-gray-200;
 }
