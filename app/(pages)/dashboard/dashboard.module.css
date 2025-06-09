@@ -6,7 +6,7 @@
    @apply w-44 flex flex-col justify-center;
 }
 .tab_qty {
-   @apply w-10 flex items-center;
+   @apply w-10 flex grow items-center;
 }
 .tab_total {
    @apply w-24 flex items-center;
@@ -19,7 +19,7 @@
 
 /* component/filterList/card */
 .buttonFilter {
-   @apply w-48 py-2 rounded-full flex justify-center items-center text-gray-700 text-2xl bg-gray-300 hover:bg-gray-400 active:bg-gray-500;
+   @apply w-48 px-2 py-1 rounded-full flex shrink-0 justify-center items-center text-gray-700 text-2xl bg-gray-300 hover:bg-gray-400 active:bg-gray-500;
 }
 .buttonFilterActive {
    @apply font-extrabold bg-white hover:bg-gray-100 active:bg-gray-200;

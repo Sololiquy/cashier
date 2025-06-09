@@ -12,7 +12,7 @@ export default function CheckoutList() {
 
    return (
       <>
-         <div className="m-2 mt-0 gap-3 flex flex-col">
+         <div className="w-full m-2 mt-0 gap-3 flex flex-col">
             <div className=" p-2 gap-2 flex flex-col grow">
                <div className={`gap-3 flex flex-row`}>
                   <div className={`${style.tab_image} !h-auto`}></div>

@@ -24,7 +24,7 @@ export default function Dashboard() {
    return (
       <>
          <div className={`background `}></div>
-         <div className="w-screen h-screen relative flex flex-row">
+         <div className="w-screen h-screen relative flex flex-col md:flex-row">
             <contextModdingData.Provider value={{ total, setTotal, checkout, setCheckout, filter, setFilter }}>
                <div className={`flex flex-col p-3 gap-3 grow bg-gray-600`}>
                   <FilterList />

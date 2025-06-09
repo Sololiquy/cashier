@@ -57,18 +57,18 @@ export default function Card({ data }: parameterType) {
             </div>
             <div className={`font-bold text-xl`}>{data.name}</div>
             <div className={`flex flex-row`}>
-               <div className=" flex flex-row">
+               <div className=" flex flex-row gap-1">
                   <button
                      onClick={quantity !== 0 ? () => handleQtyChange(data.barcode_id, -1) : undefined}
-                     className={`size-5 ${quantity === 0 ? "cursor-not-allowed bg-gray-500" : "bg-red-500 text-white"}`}
+                     className={`size-8 ${quantity === 0 ? "cursor-not-allowed bg-gray-500" : "bg-red-500 text-white"}`}
                   >
                      -
                   </button>
-                  <button onClick={() => handleQtyChange(data.barcode_id, 1)} className="size-5 bg-green-500 text-white">
+                  <button onClick={() => handleQtyChange(data.barcode_id, 1)} className="size-8 bg-green-500 text-white">
                      +
                   </button>
                </div>
-               <div className={`px-1 grow text-right`}>Rp.{data.price}</div>
+               <div className={`px-1 grow text-right text-lg content-center`}>Rp.{data.price}</div>
             </div>
          </div>
       </>

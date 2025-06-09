@@ -7,7 +7,7 @@ import Card from "./card";
 export default function FilterList() {
    return (
       <>
-         <div className={`flex flex-row gap-5 justify-center`}>
+         <div className={`flex flex-row gap-5 justify-center overflow-y-scroll`}>
             <Card type="food" />
             <Card type="drink" />
             <Card type="dessert" />

@@ -1,11 +1,14 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 // import ProductSearch from "./productSearch";
 import Card from "./card";
 
+import { contextModdingData } from "../../context";
+
 export default function ProductList() {
+   const { filter } = useContext(contextModdingData);
    const [product, setProduct] = useState([]);
    // const [showModal, setShowModal] = useState(false);
 
@@ -22,11 +25,21 @@ export default function ProductList() {
       fetchProducts();
    }, []);
 
+   const filteredProducts = product.filter((item: any) => {
+      if (!filter || filter.length === 0) {
+         return true;
+      } else {
+         return item.category.some((category: string) => filter.includes(category));
+      }
+   });
+
+   console.log(product);
+
    return (
       <>
          <div className={`w-full h-full relative `}>
             <div className={`gap-3 flex flex-row flex-wrap`}>
-               {product.map((item: any) => (
+               {filteredProducts.map((item: any) => (
                   <Card key={item.barcode_id} data={item} />
                ))}
             </div>
