@@ -13,8 +13,23 @@
 }
 
 /* components/productList/Card */
-.itemQuantity {
-   @apply size-8 top-1.5 right-1.5 rounded-full absolute flex justify-center items-center;
+.itemAvailablity {
+   @apply top-1.5 right-1.5 rounded-full absolute flex justify-center items-center;
+}
+
+/* component/filterList */
+
+.filterGroupCard {
+   @apply w-full flex flex-row gap-5 justify-center overflow-y-hidden overflow-x-auto pl-60 pb-2;
+}
+.filterGroupCard::-webkit-scrollbar {
+   @apply h-[5px];
+}
+.filterGroupCard::-webkit-scrollbar-thumb {
+   @apply rounded-full bg-white;
+}
+.filterGroupCard::-webkit-scrollbar-thumb:hover {
+   @apply bg-gray-600;
 }
 
 /* component/filterList/card */

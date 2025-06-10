@@ -4,10 +4,12 @@ import React from "react";
 
 import Card from "./card";
 
+import style from "../../dashboard.module.css";
+
 export default function FilterList() {
    return (
       <>
-         <div className={`flex flex-row gap-5 justify-center overflow-y-scroll`}>
+         <div className={`${style.filterGroupCard}`}>
             <Card type="food" />
             <Card type="drink" />
             <Card type="dessert" />

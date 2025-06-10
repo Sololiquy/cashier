@@ -12,6 +12,7 @@ interface parameterType {
       name: string;
       price: number;
       url_image: string;
+      availablity: boolean;
    };
 }
 
@@ -53,20 +54,25 @@ export default function Card({ data }: parameterType) {
          <div className={`w-[200px] h-[270px] p-3 gap-1 flex flex-col rounded-xl bg-gray-700`}>
             <div className={`size-[176px] rounded-xl overflow-hidden relative`}>
                <img className={`w-full h-full object-cover`} src={imageURL} alt="" />
-               {quantity > 0 && <div className={`${style.itemQuantity} bg-red-500`}>{quantity}</div>}
+               {!data.availablity && <div className={`${style.itemAvailablity} w-16 bg-gray-800`}>Habis</div>}
+               {quantity > 0 && <div className={`${style.itemAvailablity} size-8 bg-red-500`}>{quantity}</div>}
             </div>
             <div className={`font-bold text-xl`}>{data.name}</div>
             <div className={`flex flex-row`}>
                <div className=" flex flex-row gap-1">
-                  <button
-                     onClick={quantity !== 0 ? () => handleQtyChange(data.barcode_id, -1) : undefined}
-                     className={`size-8 ${quantity === 0 ? "cursor-not-allowed bg-gray-500" : "bg-red-500 text-white"}`}
-                  >
-                     -
-                  </button>
-                  <button onClick={() => handleQtyChange(data.barcode_id, 1)} className="size-8 bg-green-500 text-white">
-                     +
-                  </button>
+                  {data.availablity && (
+                     <>
+                        <button
+                           onClick={quantity !== 0 ? () => handleQtyChange(data.barcode_id, -1) : undefined}
+                           className={`size-8 ${quantity === 0 ? "cursor-not-allowed bg-gray-500" : "bg-red-500 text-white"}`}
+                        >
+                           -
+                        </button>
+                        <button onClick={() => handleQtyChange(data.barcode_id, 1)} className="size-8 bg-green-500 text-white">
+                           +
+                        </button>
+                     </>
+                  )}
                </div>
                <div className={`px-1 grow text-right text-lg content-center`}>Rp.{data.price}</div>
             </div>

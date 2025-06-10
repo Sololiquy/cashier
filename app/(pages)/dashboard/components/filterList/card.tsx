@@ -20,9 +20,9 @@ export default function Card({ type }: parameterType) {
    return (
       <>
          <button className={`${style.buttonFilter} ${type === filter ? style.buttonFilterActive : ""}`} onClick={() => handleFilter(type === filter ? "" : type)}>
-            <div className="size-10">
-               <img className={`object-cover`} src={`/category/${type}.svg`} alt="" />
-            </div>
+            {/* <div className="size-10"> */}
+            <img className={`size-10 object-cover`} src={`/category/${type}.svg`} alt="" />
+            {/* </div> */}
             <div className={`flex grow justify-center`}>{type.toUpperCase()}</div>
          </button>
       </>

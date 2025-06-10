@@ -25,13 +25,15 @@ export default function ProductList() {
       fetchProducts();
    }, []);
 
-   const filteredProducts = product.filter((item: any) => {
-      if (!filter || filter.length === 0) {
-         return true;
-      } else {
-         return item.category.some((category: string) => filter.includes(category));
-      }
-   });
+   const filteredProducts = product
+      .filter((item: any) => {
+         if (!filter || filter.length === 0) {
+            return true;
+         } else {
+            return item.category.some((category: string) => filter.includes(category));
+         }
+      })
+      .sort((a: any, b: any) => a.name.localeCompare(b.name));
 
    console.log(product);
 
@@ -43,11 +45,7 @@ export default function ProductList() {
                   <Card key={item.barcode_id} data={item} />
                ))}
             </div>
-            {/* <button onClick={() => setShowModal(true)} className=" px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-               Open Product Search
-            </button> */}
          </div>
-         {/* {showModal && <ProductSearch setShowModal={setShowModal} />} */}
       </>
    );
 }
