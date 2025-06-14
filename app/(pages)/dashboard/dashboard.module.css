@@ -13,7 +13,7 @@
 }
 
 /* components/productList/Card */
-.itemAvailablity {
+.itemavailability {
    @apply top-1.5 right-1.5 rounded-full absolute flex justify-center items-center;
 }
 

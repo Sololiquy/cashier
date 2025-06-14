@@ -6,7 +6,7 @@ import style from "../../dashboard.module.css";
 
 interface parameterType {
    data: {
-      barcode_id: string;
+      product_id: string;
       name: string;
       price: number;
       quantity: number;
@@ -15,7 +15,6 @@ interface parameterType {
 }
 
 export default function Card({ data }: parameterType) {
-   console.log(data);
    return (
       <>
          <div className={`gap-3 flex flex-row`}>
