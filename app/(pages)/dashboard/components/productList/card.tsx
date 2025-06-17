@@ -38,9 +38,7 @@ export default function Card({ data }: parameterType) {
          setCheckout([
             ...checkout,
             {
-               product_id: data.product_id,
-               name: data.name,
-               price: data.price,
+               ...data,
                quantity: 1,
                imageURL: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/product/${data.url_image}`,
             },

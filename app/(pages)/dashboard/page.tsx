@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-
 import FilterList from "./components/filterList/filterList";
 import ProductList from "./components/productList/productList";
 import CheckoutList from "./components/checkoutList/checkoutList";
+import ReceiptList from "./components/receiptList/receiptList";
 import Setting from "./components/setting/setting";
 import Toolbar from "./components/toolbar/toolbar";
 // import QRscan from "./components/QRscan";
@@ -17,8 +17,16 @@ export default function Dashboard() {
    const [filter, setFilter] = useState<string>("");
    const [toolbar, setToolbar] = useState<string>("dashboard");
    const [total, setTotal] = useState<number>(0);
+   const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
-   console.log(checkout, product);
+   useEffect(() => {
+      const checkAdmin = async () => {
+         const res = await fetch("/api/credential/checkUser");
+         const data = await res.json();
+         setIsAdmin(data.isAdmin);
+      };
+      checkAdmin();
+   }, []);
 
    useEffect(() => {
       const fetchProducts = async () => {
@@ -44,7 +52,7 @@ export default function Dashboard() {
       <>
          <div className={`background `}></div>
          <div className="w-screen h-screen relative flex flex-col md:flex-row overflow-hidden">
-            <contextModdingData.Provider value={{ total, setTotal, checkout, setCheckout, filter, setFilter, product, setProduct, toolbar, setToolbar }}>
+            <contextModdingData.Provider value={{ total, setTotal, checkout, setCheckout, filter, setFilter, product, setProduct, toolbar, setToolbar, isAdmin }}>
                <div className="flex bg-gray-700">
                   <Toolbar />
                </div>
@@ -58,6 +66,10 @@ export default function Dashboard() {
                         <CheckoutList />
                      </div>
                   </>
+               ) : toolbar === "receipt" && isAdmin ? (
+                  <div className="flex p-3 grow bg-gray-600 ">
+                     <ReceiptList />
+                  </div>
                ) : toolbar === "setting" ? (
                   <div className="flex p-3 grow bg-gray-600 ">
                      <Setting />

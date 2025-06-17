@@ -20,7 +20,7 @@
 /* component/filterList */
 
 .filterGroupCard {
-   @apply w-full flex flex-row gap-5 justify-center overflow-y-hidden overflow-x-auto pl-60 pb-2;
+   @apply w-full flex flex-row gap-5 justify-center overflow-y-hidden overflow-x-auto pb-2;
 }
 .filterGroupCard::-webkit-scrollbar {
    @apply h-[5px];
