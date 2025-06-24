@@ -6,6 +6,7 @@ export async function POST(req: Request) {
       const { productID } = await req.json();
 
       const data = await getProduct(productID);
+
       return NextResponse.json(data, { status: 200 });
    } catch (error) {
       return NextResponse.json({ error }, { status: 500 });

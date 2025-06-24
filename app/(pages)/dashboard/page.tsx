@@ -18,6 +18,7 @@ export default function Dashboard() {
    const [toolbar, setToolbar] = useState<string>("dashboard");
    const [total, setTotal] = useState<number>(0);
    const [isAdmin, setIsAdmin] = useState<boolean>(false);
+   const [receipt, setReceipt] = useState<any[]>([]);
 
    useEffect(() => {
       const checkAdmin = async () => {
@@ -47,13 +48,14 @@ export default function Dashboard() {
       }, 0);
       setTotal(newTotal);
    }, [checkout]);
+   console.log(receipt);
 
    return (
       <>
          <div className={`background `}></div>
          <div className="w-screen h-screen relative flex flex-col md:flex-row overflow-hidden">
-            <contextModdingData.Provider value={{ total, setTotal, checkout, setCheckout, filter, setFilter, product, setProduct, toolbar, setToolbar, isAdmin }}>
-               <div className="flex bg-gray-700">
+            <contextModdingData.Provider value={{ total, setTotal, checkout, setCheckout, filter, setFilter, product, setProduct, toolbar, setToolbar, receipt, setReceipt, isAdmin }}>
+               <div className="flex shrink-0 bg-gray-700">
                   <Toolbar />
                </div>
                {toolbar === "dashboard" ? (

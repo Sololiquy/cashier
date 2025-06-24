@@ -1,9 +1,38 @@
-import React from "react";
+"use client";
 
-export default function receiptList() {
+import React, { useContext, useEffect } from "react";
+
+import Card from "./card";
+
+import { contextModdingData } from "../../context";
+
+export default function ReceiptList() {
+   const { receipt, setReceipt } = useContext(contextModdingData);
+
+   useEffect(() => {
+      const fetchProducts = async () => {
+         try {
+            const res = await fetch("/api/getAllReceipt");
+            const data = await res.json();
+            setReceipt(data);
+         } catch (err) {
+            console.error(err);
+         }
+      };
+      fetchProducts();
+   }, []);
+
+   const filteredReceipt = receipt.sort((a: any, b: any) => b.checkout_data.localeCompare(a.checkout_data));
+
    return (
       <>
-         <div>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Excepturi velit consequuntur eum.</div>
+         <div className={`w-full h-full relative `}>
+            <div className={`gap-3 flex flex-row flex-wrap`}>
+               {filteredReceipt.map((item: any) => (
+                  <Card key={item.checkout_data} data={item} />
+               ))}
+            </div>
+         </div>
       </>
    );
 }

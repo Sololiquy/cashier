@@ -10,6 +10,29 @@ import { contextModdingData } from "../../context";
 export default function CheckoutList() {
    const { total, checkout } = useContext(contextModdingData);
 
+   const handleSubmitCheckout = async () => {
+      try {
+         const res = await fetch("/api/addCheckout", {
+            method: "POST",
+            headers: {
+               "Content-Type": "application/json",
+            },
+            body: JSON.stringify(checkout),
+         });
+
+         const result = await res.json();
+
+         if (res.ok) {
+            alert("Checkout successful!");
+         } else {
+            alert("Checkout failed: " + result.error);
+         }
+      } catch (err) {
+         console.error("Checkout error", err);
+         alert("Checkout error: " + err);
+      }
+   };
+
    return (
       <>
          <div className="w-full m-2 mt-0 gap-3 flex flex-col">
@@ -26,7 +49,9 @@ export default function CheckoutList() {
             </div>
             <hr />
             <div className="flex justify-end text-xl">Rp. {total}</div>
-            <button className={`px-4 py-2 text-white rounded bg-green-500 hover:bg-green-600 active:bg-green-700`}>CHECKOUT</button>
+            <button className={`px-4 py-2 text-white rounded bg-green-500 hover:bg-green-600 active:bg-green-700`} onClick={handleSubmitCheckout}>
+               CHECKOUT
+            </button>
          </div>
       </>
    );
