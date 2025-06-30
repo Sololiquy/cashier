@@ -22,14 +22,14 @@ export default function ReceiptList() {
       fetchProducts();
    }, []);
 
-   const filteredReceipt = receipt.sort((a: any, b: any) => b.checkout_data.localeCompare(a.checkout_data));
+   const filteredReceipt = receipt.sort((a: any, b: any) => b.checkout_date.localeCompare(a.checkout_date));
 
    return (
       <>
          <div className={`w-full h-full relative `}>
             <div className={`gap-3 flex flex-row flex-wrap`}>
                {filteredReceipt.map((item: any) => (
-                  <Card key={item.checkout_data} data={item} />
+                  <Card key={item.checkout_date} data={item} />
                ))}
             </div>
          </div>

@@ -3,12 +3,12 @@ import { addCheckout } from "@/utils/supabase/services";
 
 export async function POST(req: NextRequest) {
    try {
-      const checkout = await req.json();
+      const { checkout, total } = await req.json();
 
       checkout.forEach((item: any) => {
-         ["category", "imageURL", "price", "url_image", "name", "availability"].forEach((key) => delete item[key]);
+         ["category", "imageURL", "url_image", "name", "availability"].forEach((key) => delete item[key]);
       });
-      await addCheckout(checkout);
+      await addCheckout(checkout, total);
 
       return NextResponse.json({ message: "Checkout successful" }, { status: 200 });
    } catch (error) {

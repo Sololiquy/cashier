@@ -17,7 +17,7 @@ export default function CheckoutList() {
             headers: {
                "Content-Type": "application/json",
             },
-            body: JSON.stringify(checkout),
+            body: JSON.stringify({ checkout, total }),
          });
 
          const result = await res.json();

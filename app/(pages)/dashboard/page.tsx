@@ -48,7 +48,6 @@ export default function Dashboard() {
       }, 0);
       setTotal(newTotal);
    }, [checkout]);
-   console.log(receipt);
 
    return (
       <>

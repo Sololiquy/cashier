@@ -37,9 +37,10 @@ export async function updateProduct(productID: string, price: number, availabili
    }
 }
 
-export async function addCheckout(checkout: any[]) {
+export async function addCheckout(checkout: any[], total: number) {
    const { error } = await supabase.rpc("add_checkout", {
       o_receipt_data: checkout,
+      o_total: total,
    });
    if (error) {
       throw new Error(error.message);
