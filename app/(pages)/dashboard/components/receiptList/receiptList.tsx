@@ -27,7 +27,7 @@ export default function ReceiptList() {
    return (
       <>
          <div className={`w-full h-full relative `}>
-            <div className={`gap-3 flex flex-row flex-wrap`}>
+            <div className={`gap-3 flex flex-wrap items-start`}>
                {filteredReceipt.map((item: any) => (
                   <Card key={item.checkout_date} data={item} />
                ))}

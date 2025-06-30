@@ -39,3 +39,5 @@
 .buttonFilterActive {
    @apply font-extrabold bg-white hover:bg-gray-100 active:bg-gray-200;
 }
+
+/* component/receiptList/card */
