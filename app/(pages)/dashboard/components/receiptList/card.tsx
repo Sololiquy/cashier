@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
+import { AnimatePresence, motion } from "motion/react";
 
 import ProductCard from "./subcomponents/productCard";
-import { AnimatePresence, motion } from "motion/react";
 
 // import style from "../../dashboard.module.css";
 
@@ -34,7 +34,7 @@ export default function Card({ data, expand, setExpand, confirmationPay }: param
 
    return (
       <>
-         <div className={`flex flex-col rounded-xl bg-gray-700`}>
+         <div className={`min-w-[256px] max-w-[300px] w-full flex flex-col rounded-xl bg-gray-700`}>
             <div className={`flex flex-col p-3 pb-1 gap-3`}>
                <div className={`flex flex-row gap-1`}>
                   <div className={`${status === "SUCCESS" ? "bg-green-500" : "bg-red-500"} rounded-full px-2`}>{status}</div>

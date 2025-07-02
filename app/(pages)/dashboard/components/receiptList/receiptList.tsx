@@ -44,9 +44,8 @@ export default function ReceiptList() {
    return (
       <>
          <div className={`w-full h-full relative `}>
+            {selectedReceipt && <Modal data={selectedReceipt} onClose={() => setSelectedReceipt(null)} handlePay={handlePay} />}
             <div className={`gap-3 flex flex-wrap items-start`}>
-               {selectedReceipt && <Modal receipt={selectedReceipt} onClose={() => setSelectedReceipt(null)} handlePay={handlePay} />}
-
                {filteredReceipt.map((item: any) => (
                   <Card key={item.checkout_date} data={item} expand={expand} setExpand={setExpand} confirmationPay={confirmationPay} />
                ))}
