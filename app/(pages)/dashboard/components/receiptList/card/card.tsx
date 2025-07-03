@@ -3,7 +3,7 @@
 import React from "react";
 import { AnimatePresence, motion } from "motion/react";
 
-import ProductCard from "./subcomponents/productCard";
+import ProductCard from "./productCard";
 
 // import style from "../../dashboard.module.css";
 
@@ -16,10 +16,10 @@ interface parameterType {
    };
    expand: string;
    setExpand: (val: string) => void;
-   confirmationPay: (data: any) => void;
+   handlePaymentModal: (data: any) => void;
 }
 
-export default function Card({ data, expand, setExpand, confirmationPay }: parameterType) {
+export default function Card({ data, expand, setExpand, handlePaymentModal }: parameterType) {
    const status = data.paid_status ? "SUCCESS" : "PENDING";
    const date = data.checkout_date.split("T")[0];
    const time = data.checkout_date.split("T")[1].split(".")[0];
@@ -64,9 +64,11 @@ export default function Card({ data, expand, setExpand, confirmationPay }: param
                   <div>Rp {data.total_price}</div>
                </div>
                <button
-                  className={`px-4 py-2 text-white rounded ${data.paid_status ? "bg-green-500" : "bg-yellow-500 hover:bg-yellow-600 active:bg-yellow-700"}`}
+                  className={`px-4 py-2 text-white rounded ${
+                     data.paid_status ? "bg-green-500" : "bg-yellow-500 hover:bg-yellow-600 active:bg-yellow-700"
+                  }`}
                   disabled={data.paid_status}
-                  onClick={() => confirmationPay(data)}
+                  onClick={() => handlePaymentModal(data)}
                >
                   {data.paid_status ? "Show details" : "Pay now"}
                </button>
