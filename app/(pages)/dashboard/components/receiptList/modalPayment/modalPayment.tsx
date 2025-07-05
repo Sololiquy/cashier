@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import ReceiptDetail from "./phase/1-ReceiptDetail/receiptDetail";
 import PayMethod from "./phase/2-PayMethod/payMethod";
+import PaymentProcess from "./phase/3-PaymentProcess/paymentProcess";
 
 interface parameterType {
    data: any;
@@ -12,7 +13,10 @@ interface parameterType {
 }
 
 export default function ModalPayment({ data, handlePaymentModal, handlePay }: parameterType) {
-   const [step, setStep] = useState<string>("receipt");
+   const [phase, setPhase] = useState<number>(1);
+   // 1 = Receipt Detail, 2 = Pay Method
+   const [paymentMethod, setPaymentMethod] = useState<number | null>(null);
+   // 1 = Cash, 2 = QRIS
    const hasMounted = useRef(false);
 
    useEffect(() => {
@@ -36,7 +40,7 @@ export default function ModalPayment({ data, handlePaymentModal, handlePay }: pa
                <hr className={`w-full`} />
 
                <AnimatePresence mode="wait">
-                  {step === "receipt" && (
+                  {phase === 1 && (
                      <motion.div
                         key="receipt"
                         initial={hasMounted.current ? { x: 50, opacity: 0 } : false}
@@ -48,7 +52,7 @@ export default function ModalPayment({ data, handlePaymentModal, handlePay }: pa
                         <ReceiptDetail data={data} />
                      </motion.div>
                   )}
-                  {step === "pay" && (
+                  {phase === 2 && (
                      <motion.div
                         key="pay"
                         initial={hasMounted.current ? { x: 50, opacity: 0 } : false}
@@ -57,7 +61,19 @@ export default function ModalPayment({ data, handlePaymentModal, handlePay }: pa
                         transition={{ duration: 0.2 }}
                         className={`flex flex-col gap-3`}
                      >
-                        <PayMethod />
+                        <PayMethod setPaymentMethod={setPaymentMethod} paymentMethod={paymentMethod} />
+                     </motion.div>
+                  )}
+                  {phase === 3 && (
+                     <motion.div
+                        key="process"
+                        initial={hasMounted.current ? { x: 50, opacity: 0 } : false}
+                        animate={{ x: 0, opacity: 1 }}
+                        exit={{ x: -100, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className={`flex flex-col gap-3`}
+                     >
+                        <PaymentProcess paymentMethod={paymentMethod} />
                      </motion.div>
                   )}
                </AnimatePresence>
@@ -68,25 +84,33 @@ export default function ModalPayment({ data, handlePaymentModal, handlePay }: pa
             <div className={`mt-4 flex justify-end gap-2`}>
                <button
                   onClick={() => {
-                     if (step === "pay") {
-                        setStep("receipt");
+                     if (phase > 1) {
+                        setPhase((prev) => prev - 1);
                      } else {
                         handlePaymentModal(null);
                      }
                   }}
                   className={`bg-gray-700 px-4 py-2 rounded`}
                >
-                  {step === "pay" ? "Back" : "Cancel"}
+                  {phase <= 3 ? "Cancel" : "Back"}
                </button>
-               {step === "receipt" ? (
-                  <button onClick={() => setStep("pay")} className={`bg-blue-600 text-white px-4 py-2 rounded`}>
+               {phase === 1 ? (
+                  <button onClick={() => setPhase((prev) => prev + 1)} className={`bg-blue-600 text-white px-4 py-2 rounded`}>
+                     Next
+                  </button>
+               ) : phase === 2 ? (
+                  <button
+                     disabled={paymentMethod === null}
+                     onClick={() => setPhase((prev) => prev + 1)}
+                     className={`${paymentMethod === null ? "bg-gray-700" : "bg-blue-600"} text-white px-4 py-2 rounded`}
+                  >
+                     Next
+                  </button>
+               ) : phase === 3 ? (
+                  <button onClick={() => handlePay(data)} className={`bg-green-600 text-white px-4 py-2 rounded`}>
                      Pay Now
                   </button>
-               ) : (
-                  <button onClick={() => handlePay(data)} className={`bg-green-600 text-white px-4 py-2 rounded`}>
-                     Confirm
-                  </button>
-               )}
+               ) : null}
             </div>
          </motion.div>
       </div>
