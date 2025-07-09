@@ -5,7 +5,7 @@ import React from "react";
 export default function QRIS() {
    return (
       <>
-         <div>QRIS</div>
+         <div>QRIS payment coming soon</div>
       </>
    );
 }

@@ -17,11 +17,14 @@ export default function ModalPayment({ data, handlePaymentModal, handlePay }: pa
    // 1 = Receipt Detail, 2 = Pay Method
    const [paymentMethod, setPaymentMethod] = useState<number | null>(null);
    // 1 = Cash, 2 = QRIS
-   const hasMounted = useRef(false);
 
+   const hasMounted = useRef(false);
    useEffect(() => {
       hasMounted.current = true;
    }, []);
+
+   // Payment with manual
+   const [payTotal, setPayTotal] = useState<number>(0);
 
    if (!data) return null;
 
@@ -73,7 +76,7 @@ export default function ModalPayment({ data, handlePaymentModal, handlePay }: pa
                         transition={{ duration: 0.2 }}
                         className={`flex flex-col gap-3`}
                      >
-                        <PaymentProcess paymentMethod={paymentMethod} />
+                        <PaymentProcess total_price={data.total_price} paymentMethod={paymentMethod} payTotal={payTotal} setPayTotal={setPayTotal} />
                      </motion.div>
                   )}
                </AnimatePresence>
@@ -92,7 +95,7 @@ export default function ModalPayment({ data, handlePaymentModal, handlePay }: pa
                   }}
                   className={`bg-gray-700 px-4 py-2 rounded`}
                >
-                  {phase <= 3 ? "Cancel" : "Back"}
+                  {phase <= 1 ? "Cancel" : "Back"}
                </button>
                {phase === 1 ? (
                   <button onClick={() => setPhase((prev) => prev + 1)} className={`bg-blue-600 text-white px-4 py-2 rounded`}>
@@ -107,7 +110,11 @@ export default function ModalPayment({ data, handlePaymentModal, handlePay }: pa
                      Next
                   </button>
                ) : phase === 3 ? (
-                  <button onClick={() => handlePay(data)} className={`bg-green-600 text-white px-4 py-2 rounded`}>
+                  <button
+                     disabled={payTotal < data.total_price}
+                     onClick={() => handlePay(data)}
+                     className={` ${payTotal < data.total_price ? "bg-gray-700" : "bg-green-600"} text-white px-4 py-2 rounded`}
+                  >
                      Pay Now
                   </button>
                ) : null}
