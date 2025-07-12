@@ -9,22 +9,47 @@ import PaymentProcess from "./phase/3-PaymentProcess/paymentProcess";
 interface parameterType {
    data: any;
    handlePaymentModal: (data: any) => void;
-   handlePay: (data: any) => void;
+   refetchReceipts: () => void;
 }
 
-export default function ModalPayment({ data, handlePaymentModal, handlePay }: parameterType) {
+export default function ModalPayment({ data, handlePaymentModal, refetchReceipts }: parameterType) {
    const [phase, setPhase] = useState<number>(1);
    // 1 = Receipt Detail, 2 = Pay Method
    const [paymentMethod, setPaymentMethod] = useState<number | null>(null);
    // 1 = Cash, 2 = QRIS
+
+   // Payment with manual
+   const [payTotal, setPayTotal] = useState<number>(0);
 
    const hasMounted = useRef(false);
    useEffect(() => {
       hasMounted.current = true;
    }, []);
 
-   // Payment with manual
-   const [payTotal, setPayTotal] = useState<number>(0);
+   const handlePaymentManual = async () => {
+      const checkout_date = data.checkout_date;
+      try {
+         const res = await fetch("/api/payment/manual", {
+            method: "POST",
+            headers: {
+               "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ checkout_date, payTotal }),
+         });
+
+         if (res.ok) {
+            alert("Payment Succesful!");
+            await refetchReceipts();
+            handlePaymentModal(null);
+         } else {
+            const result = await res.json();
+            alert(result.error || "Payment failed");
+         }
+      } catch (error) {
+         console.error(error);
+         alert(error);
+      }
+   };
 
    if (!data) return null;
 
@@ -112,7 +137,7 @@ export default function ModalPayment({ data, handlePaymentModal, handlePay }: pa
                ) : phase === 3 ? (
                   <button
                      disabled={payTotal < data.total_price}
-                     onClick={() => handlePay(data)}
+                     onClick={handlePaymentManual}
                      className={` ${payTotal < data.total_price ? "bg-gray-700" : "bg-green-600"} text-white px-4 py-2 rounded`}
                   >
                      Pay Now

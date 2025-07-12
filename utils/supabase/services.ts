@@ -46,3 +46,15 @@ export async function addCheckout(checkout: any[], total: number) {
       throw new Error(error.message);
    }
 }
+
+export async function paymentManual(checkout_date: string, payTotal: number) {
+   const { error } = await supabase.rpc("payment_manual", {
+      o_checkout_date: checkout_date,
+      o_paytotal: payTotal,
+   });
+   if (error) {
+      throw new Error(error.message);
+   }
+
+   return { success: true };
+}

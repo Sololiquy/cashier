@@ -13,27 +13,19 @@ export default function ReceiptList() {
 
    const [expand, setExpand] = useState<string>("");
 
-   useEffect(() => {
-      const fetchProducts = async () => {
-         try {
-            const res = await fetch("/api/getAllReceipt");
-            const data = await res.json();
-            setReceipt(data);
-         } catch (err) {
-            console.error(err);
-         }
-      };
-      fetchProducts();
-   }, []);
-
-   const handlePay = async (receipt: any) => {
+   const fetchProducts = async () => {
       try {
-         alert(`Paying receipt ID: ${receipt.checkout_date}`);
-         setOpenPaymentModal(null);
+         const res = await fetch("/api/getAllReceipt");
+         const data = await res.json();
+         setReceipt(data);
       } catch (err) {
-         console.error("Payment failed:", err);
+         console.error(err);
       }
    };
+
+   useEffect(() => {
+      fetchProducts();
+   }, []);
 
    const handlePaymentModal = (data: any) => {
       setOpenPaymentModal(data);
@@ -44,7 +36,7 @@ export default function ReceiptList() {
    return (
       <>
          <div className={`w-full h-full relative `}>
-            {openPaymentModal && <Modal data={openPaymentModal} handlePaymentModal={handlePaymentModal} handlePay={handlePay} />}
+            {openPaymentModal && <Modal data={openPaymentModal} handlePaymentModal={handlePaymentModal} refetchReceipts={fetchProducts} />}
             <div className={`gap-3 flex flex-wrap items-start`}>
                {filteredReceipt.map((item: any) => (
                   <Card key={item.checkout_date} data={item} expand={expand} setExpand={setExpand} handlePaymentModal={handlePaymentModal} />
