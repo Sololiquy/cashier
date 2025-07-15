@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 import style from "../../dashboard.module.css";
 
-import { contextModdingData } from "../../context";
+import { contextModdingData } from "../../_context";
 
 interface parameterType {
    data: {
@@ -32,7 +32,11 @@ export default function Card({ data }: parameterType) {
          if (item.quantity === 1 && value === -1) {
             setCheckout(checkout.filter((item: { product_id: string }) => item.product_id !== id));
          } else {
-            setCheckout(checkout.map((item: { product_id: string; quantity: number }) => (item.product_id === id ? { ...item, quantity: Math.max(item.quantity + value, 1) } : item)));
+            setCheckout(
+               checkout.map((item: { product_id: string; quantity: number }) =>
+                  item.product_id === id ? { ...item, quantity: Math.max(item.quantity + value, 1) } : item
+               )
+            );
          }
       } else {
          setCheckout([

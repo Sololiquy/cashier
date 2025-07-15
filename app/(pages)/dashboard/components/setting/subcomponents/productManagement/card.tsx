@@ -4,7 +4,7 @@ import React, { useContext, useState } from "react";
 
 // import style from "../../../../dashboard.module.css";
 
-import { contextModdingData } from "../../../../context";
+import { contextModdingData } from "../../../../_context";
 
 interface parameterType {
    data: {
@@ -70,7 +70,13 @@ export default function Card({ data }: parameterType) {
             <div className={`font-bold text-xl`}>{data.name}</div>
             <div className={`flex flex-row gap-1`}>
                Rp
-               <input className={`w-full flex px-1 text-black`} type="number" value={price} onChange={(e) => setPrice(Number(e.target.value))} required />
+               <input
+                  className={`w-full flex px-1 text-black`}
+                  type="number"
+                  value={price}
+                  onChange={(e) => setPrice(Number(e.target.value))}
+                  required
+               />
             </div>
             <div className={`flex flex-row gap-2`}>
                <input type="checkbox" checked={availability} onChange={(e) => setAvailability(e.target.checked)} />
@@ -79,7 +85,9 @@ export default function Card({ data }: parameterType) {
 
             <div className={`flex grow justify-end items-end`}>
                <button
-                  className={`px-4 py-1 text-white rounded ${isUnchanged ? "bg-gray-400 cursor-not-allowed" : "bg-green-500 hover:bg-green-600 active:bg-green-700"}`}
+                  className={`px-4 py-1 text-white rounded ${
+                     isUnchanged ? "bg-gray-400 cursor-not-allowed" : "bg-green-500 hover:bg-green-600 active:bg-green-700"
+                  }`}
                   type="submit"
                   disabled={isUnchanged}
                >

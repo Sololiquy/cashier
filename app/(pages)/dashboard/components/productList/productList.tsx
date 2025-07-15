@@ -4,7 +4,7 @@ import React, { useContext } from "react";
 
 import Card from "./card";
 
-import { contextModdingData } from "../../context";
+import { contextModdingData } from "../../_context";
 
 export default function ProductList() {
    const { filter, product } = useContext(contextModdingData);

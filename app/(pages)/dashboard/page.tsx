@@ -9,7 +9,7 @@ import Setting from "./components/setting/setting";
 import Toolbar from "./components/toolbar/toolbar";
 // import QRscan from "./components/QRscan";
 
-import { contextModdingData } from "./context";
+import { contextModdingData } from "./_context";
 
 export default function Dashboard() {
    const [checkout, setCheckout] = useState<any[]>([]);
@@ -53,7 +53,23 @@ export default function Dashboard() {
       <>
          <div className={`background `}></div>
          <div className="w-screen h-screen relative flex flex-col md:flex-row overflow-hidden">
-            <contextModdingData.Provider value={{ total, setTotal, checkout, setCheckout, filter, setFilter, product, setProduct, toolbar, setToolbar, receipt, setReceipt, isAdmin }}>
+            <contextModdingData.Provider
+               value={{
+                  total,
+                  setTotal,
+                  checkout,
+                  setCheckout,
+                  filter,
+                  setFilter,
+                  product,
+                  setProduct,
+                  toolbar,
+                  setToolbar,
+                  receipt,
+                  setReceipt,
+                  isAdmin,
+               }}
+            >
                <div className="flex shrink-0 bg-gray-700">
                   <Toolbar />
                </div>

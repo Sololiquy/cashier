@@ -5,7 +5,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Card from "./card/card";
 import Modal from "./modalPayment/modalPayment";
 
-import { contextModdingData } from "../../context";
+import { contextModdingData } from "../../_context";
 
 export default function ReceiptList() {
    const { receipt, setReceipt } = useContext(contextModdingData);
