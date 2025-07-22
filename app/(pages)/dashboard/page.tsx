@@ -84,7 +84,7 @@ export default function Dashboard() {
                      </div>
                   </>
                ) : toolbar === "receipt" && isAdmin ? (
-                  <div className="flex p-3 grow bg-gray-600 ">
+                  <div className=" flex grow bg-gray-600 overflow-auto">
                      <ReceiptList />
                   </div>
                ) : toolbar === "setting" ? (

@@ -2,12 +2,12 @@
 
 import React, { useContext, useEffect, useState } from "react";
 
-import DesktopUI from "./Layout/desktopUI";
+import DesktopUI from "./Layout/DesktopUI/desktopUI";
 import MobileUI from "./Layout/MobileUI/mobileUI";
 import { contextModdingData } from "../../_context";
 
 export default function CheckoutList() {
-   const { total, checkout } = useContext(contextModdingData);
+   const { total, checkout, setCheckout } = useContext(contextModdingData);
    const [isDesktop, setIsDesktop] = useState(false);
 
    useEffect(() => {
@@ -33,6 +33,7 @@ export default function CheckoutList() {
 
          if (res.ok) {
             alert("Checkout successful!");
+            setCheckout([]);
          } else {
             alert("Checkout failed: " + result.error);
          }

@@ -37,7 +37,7 @@ export default function ReceiptList() {
       <>
          <div className={`w-full h-full relative `}>
             {openPaymentModal && <Modal data={openPaymentModal} handlePaymentModal={handlePaymentModal} refetchReceipts={fetchProducts} />}
-            <div className={`gap-3 flex flex-wrap items-start`}>
+            <div className={`h-full p-3 gap-3 flex flex-wrap items-start `}>
                {filteredReceipt.map((item: any) => (
                   <Card key={item.checkout_date} data={item} expand={expand} setExpand={setExpand} handlePaymentModal={handlePaymentModal} />
                ))}

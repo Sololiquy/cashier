@@ -1,5 +1,7 @@
 "use client";
 
+import { Timestamp } from "@/app/global/hook/timestamp";
+
 import React from "react";
 import { AnimatePresence, motion } from "motion/react";
 
@@ -21,8 +23,7 @@ interface parameterType {
 
 export default function Card({ data, expand, setExpand, handlePaymentModal }: parameterType) {
    const status = data.paid_status ? "SUCCESS" : "PENDING";
-   const date = data.checkout_date.split("T")[0];
-   const time = data.checkout_date.split("T")[1].split(".")[0];
+   const { date, time } = Timestamp(data.checkout_date);
 
    const handleExpandableCard = (checkout_date: string) => {
       if (expand === checkout_date) {

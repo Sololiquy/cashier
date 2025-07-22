@@ -1,15 +1,15 @@
 /* checkout table css */
 .tab_image {
-   @apply w-16 h-16;
+   @apply size-32 md:size-16;
 }
 .tab_info {
-   @apply w-44 flex flex-col justify-center;
+   @apply min-w-44 grow flex flex-col justify-center;
 }
 .tab_qty {
-   @apply w-10 flex grow items-center;
+   @apply w-16 md:w-10 flex items-center;
 }
 .tab_total {
-   @apply w-24 flex items-center;
+   @apply w-36 md:w-24 flex items-center;
 }
 
 /* components/productList/Card */

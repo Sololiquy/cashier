@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 
 import style from "../../dashboard.module.css";
 
@@ -18,12 +18,7 @@ interface parameterType {
 
 export default function Card({ data }: parameterType) {
    const { checkout, setCheckout } = useContext(contextModdingData);
-   const [quantity, setQuantity] = useState(0);
-
-   useEffect(() => {
-      const item = checkout.find((item: { product_id: string }) => item.product_id === data.product_id);
-      setQuantity(item ? item.quantity : 0);
-   }, [checkout, data.product_id]);
+   const quantity = checkout.find((item: { product_id: string }) => item.product_id === data.product_id)?.quantity || 0;
 
    const handleQtyChange = (id: string, value: number) => {
       const item = checkout.find((item: { product_id: string }) => item.product_id === id);

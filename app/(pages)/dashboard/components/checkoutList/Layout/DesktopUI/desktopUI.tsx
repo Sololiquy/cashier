@@ -2,10 +2,10 @@
 
 import React, { useContext } from "react";
 
-import Card from "../card";
+import Card from "./card";
 
-import style from "../../../dashboard.module.css";
-import { contextModdingData } from "../../../_context";
+import style from "../../../../dashboard.module.css";
+import { contextModdingData } from "../../../../_context";
 
 interface parameterType {
    handleSubmitCheckout: () => void;
@@ -30,7 +30,13 @@ export default function DestopUI({ handleSubmitCheckout }: parameterType) {
             </div>
             <hr />
             <div className="flex justify-end text-xl">Rp. {total}</div>
-            <button className={`px-4 py-2 text-white rounded bg-green-500 hover:bg-green-600 active:bg-green-700`} onClick={handleSubmitCheckout}>
+            <button
+               disabled={checkout.length === 0}
+               className={`px-4 py-2 text-white rounded ${
+                  checkout.length === 0 ? "bg-gray-500 cursor-not-allowed" : "bg-green-500 hover:bg-green-600 active:bg-green-700"
+               }`}
+               onClick={handleSubmitCheckout}
+            >
                CHECKOUT
             </button>
          </div>

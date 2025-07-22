@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import style from "../../dashboard.module.css";
+import style from "../../../../dashboard.module.css";
 
 interface parameterType {
    data: {
