@@ -13,9 +13,17 @@ export default function KeyboardUI({ onClose, onConfirm, initialValue = 0 }: Key
    const [value, setValue] = useState(initialValue.toString());
 
    const handleInput = (input: string) => {
-      if (input === "DEL") setValue(value.slice(0, -1));
-      else if (input === "CLR") setValue("");
-      else setValue(value + input);
+      if (input === "DEL") {
+         setValue(value.slice(0, -1));
+      } else if (input === "CLR") {
+         setValue("");
+      } else {
+         if (value === "0") {
+            setValue(input);
+         } else {
+            setValue(value + input);
+         }
+      }
    };
 
    const handleConfirm = () => {
@@ -33,23 +41,26 @@ export default function KeyboardUI({ onClose, onConfirm, initialValue = 0 }: Key
             onClick={onClose}
          >
             <motion.div
-               className={`bg-gray-800 p-6 rounded-lg grid gap-3 text-white w-[260px]`}
+               className={`w-screen md:w-[260px] h-screen md:h-auto bg-gray-800 p-6 rounded-lg grid gap-3 text-white `}
                onClick={(e) => e.stopPropagation()}
                initial={{ scale: 0.8 }}
                animate={{ scale: 1 }}
                exit={{ scale: 0.8 }}
             >
-               <div className={`text-right text-2xl bg-gray-700 px-3 py-2 rounded`}>{value || "0"}</div>
-               <div className={`grid grid-cols-3 gap-2`}>
+               <div className={`text-end text-6xl md:text-2xl bg-gray-700 px-3 py-2 rounded`}>{value || "0"}</div>
+               <div className={`text-4xl md:text-base grid grid-cols-3 gap-2`}>
                   {["1", "2", "3", "4", "5", "6", "7", "8", "9", "CLR", "0", "DEL"].map((key) => (
                      <button key={key} className={`bg-gray-600 py-3 rounded hover:bg-gray-500 transition`} onClick={() => handleInput(key)}>
                         {key}
                      </button>
                   ))}
+                  <button className={`bg-red-500 py-3 rounded hover:bg-blue-400 transition`} onClick={onClose}>
+                     Cancel
+                  </button>
+                  <button className={`col-span-2 bg-blue-500 py-3 rounded hover:bg-blue-400 transition`} onClick={handleConfirm}>
+                     Confirm
+                  </button>
                </div>
-               <button className={`bg-blue-500 py-3 rounded hover:bg-blue-400 transition`} onClick={handleConfirm}>
-                  Confirm
-               </button>
             </motion.div>
          </motion.div>
       </AnimatePresence>

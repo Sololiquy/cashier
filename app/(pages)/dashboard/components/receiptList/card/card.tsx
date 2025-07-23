@@ -35,7 +35,7 @@ export default function Card({ data, expand, setExpand, handlePaymentModal }: pa
 
    return (
       <>
-         <div className={`min-w-[256px] max-w-[300px] w-full flex flex-col rounded-xl bg-gray-700`}>
+         <div className={`w-full md:w-[300px] flex flex-col rounded-xl bg-gray-700`}>
             <div className={`flex flex-col p-3 pb-1 gap-3`}>
                <div className={`flex flex-row gap-1`}>
                   <div className={`${status === "SUCCESS" ? "bg-green-500" : "bg-red-500"} rounded-full px-2`}>{status}</div>

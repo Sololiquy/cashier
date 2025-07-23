@@ -61,12 +61,13 @@ export default function ModalPayment({ data, handlePaymentModal, refetchReceipts
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
-            className={`w-full max-w-[400px] rounded-lg p-6 relative overflow-hidden bg-gray-600 text-gray-100`}
+            className={`w-screen md:w-[400px] h-screen md:h-auto flex flex-col rounded-none md:rounded-lg p-6 relative overflow-hidden bg-gray-600 text-gray-100`}
          >
-            <div className={`w-full flex text-xl font-bold tracking-widest justify-center mb-3`}>Confirm Payment</div>
-            <div className={`flex flex-col gap-3`}>
-               <hr className={`w-full`} />
+            <div className={`flex text-xl font-bold tracking-widest justify-center mb-3`}>Confirm Payment</div>
 
+            <hr className={`w-full`} />
+
+            <div className={`flex flex-col grow gap-3 mt-3 mb-3`}>
                <AnimatePresence mode="wait">
                   {phase === 1 && (
                      <motion.div
@@ -105,9 +106,9 @@ export default function ModalPayment({ data, handlePaymentModal, refetchReceipts
                      </motion.div>
                   )}
                </AnimatePresence>
-
-               <hr className={`w-full`} />
             </div>
+
+            <hr className={`w-full`} />
 
             <div className={`mt-4 flex justify-end gap-2`}>
                <button

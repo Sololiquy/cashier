@@ -31,16 +31,20 @@ export default function ReceiptList() {
       setOpenPaymentModal(data);
    };
 
-   const filteredReceipt = receipt.sort((a: any, b: any) => b.checkout_date.localeCompare(a.checkout_date));
+   const filteredReceipt = receipt?.sort((a: any, b: any) => b.checkout_date.localeCompare(a.checkout_date)) || [];
 
    return (
       <>
-         <div className={`w-full h-full relative `}>
+         <div className={`relative`}>
             {openPaymentModal && <Modal data={openPaymentModal} handlePaymentModal={handlePaymentModal} refetchReceipts={fetchProducts} />}
-            <div className={`h-full p-3 gap-3 flex flex-wrap items-start `}>
-               {filteredReceipt.map((item: any) => (
-                  <Card key={item.checkout_date} data={item} expand={expand} setExpand={setExpand} handlePaymentModal={handlePaymentModal} />
-               ))}
+            <div className={`h-full p-3 gap-3 flex flex-wrap flex-row `}>
+               {filteredReceipt.length === 0 ? (
+                  <div className={`w-full h-full flex all-center text-gray-300 text-4xl tracking-widest`}>No receipts available</div>
+               ) : (
+                  filteredReceipt.map((item: any) => (
+                     <Card key={item.checkout_date} data={item} expand={expand} setExpand={setExpand} handlePaymentModal={handlePaymentModal} />
+                  ))
+               )}
             </div>
          </div>
       </>
