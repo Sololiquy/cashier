@@ -35,17 +35,17 @@ export default function ReceiptList() {
 
    return (
       <>
-         <div className={`relative`}>
+         <div className={`w-full h-full relative`}>
             {openPaymentModal && <Modal data={openPaymentModal} handlePaymentModal={handlePaymentModal} refetchReceipts={fetchProducts} />}
-            <div className={`h-full p-3 gap-3 flex flex-wrap flex-row `}>
-               {filteredReceipt.length === 0 ? (
-                  <div className={`w-full h-full flex all-center text-gray-300 text-4xl tracking-widest`}>No receipts available</div>
-               ) : (
-                  filteredReceipt.map((item: any) => (
+            {filteredReceipt.length === 0 ? (
+               <div className={`w-full h-full flex all-center text-gray-300 text-4xl tracking-widest`}>No receipts available</div>
+            ) : (
+               <div className={`p-3 gap-3 flex flex-wrap flex-row`}>
+                  {filteredReceipt.map((item: any) => (
                      <Card key={item.checkout_date} data={item} expand={expand} setExpand={setExpand} handlePaymentModal={handlePaymentModal} />
-                  ))
-               )}
-            </div>
+                  ))}
+               </div>
+            )}
          </div>
       </>
    );

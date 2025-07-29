@@ -48,8 +48,8 @@ export default function Card({ data }: parameterType) {
    const imageURL = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/product/${data.url_image}`;
    return (
       <>
-         <div className={`w-[200px] h-[270px] p-3 gap-1 flex flex-col rounded-xl bg-gray-700`}>
-            <div className={`size-[176px] rounded-xl overflow-hidden relative`}>
+         <div className={`w-[160px] p-3 gap-1 flex flex-col rounded-xl bg-gray-700`}>
+            <div className={`aspect-square rounded-xl overflow-hidden relative`}>
                <img className={`w-full h-full object-cover`} src={imageURL} alt="" />
                {!data.availability ? (
                   <div className={`${style.itemavailability} w-16 bg-gray-800`}>Habis</div>
@@ -57,24 +57,24 @@ export default function Card({ data }: parameterType) {
                   <div className={`${style.itemavailability} size-8 bg-red-500`}>{quantity}</div>
                ) : null}
             </div>
-            <div className={`font-bold text-xl`}>{data.name}</div>
+            <div className={`font-bold text-lg`}>{data.name}</div>
             <div className={`flex flex-row`}>
                <div className=" flex flex-row gap-1">
                   {data.availability && (
                      <>
                         <button
                            onClick={quantity !== 0 ? () => handleQtyChange(data.product_id, -1) : undefined}
-                           className={`size-8 ${quantity === 0 ? "cursor-not-allowed bg-gray-500" : "bg-red-500 text-white"}`}
+                           className={`size-6 ${quantity === 0 ? "cursor-not-allowed bg-gray-500" : "bg-red-500 text-white"}`}
                         >
                            -
                         </button>
-                        <button onClick={() => handleQtyChange(data.product_id, 1)} className="size-8 bg-green-500 text-white">
+                        <button onClick={() => handleQtyChange(data.product_id, 1)} className="size-6 bg-green-500 text-white">
                            +
                         </button>
                      </>
                   )}
                </div>
-               <div className={`px-1 grow text-right text-lg content-center`}>Rp.{data.price}</div>
+               <div className={`px-1 grow text-right text-base content-center`}>Rp {new Intl.NumberFormat("id-ID").format(data.price)}</div>
             </div>
          </div>
       </>

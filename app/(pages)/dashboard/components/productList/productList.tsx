@@ -22,7 +22,7 @@ export default function ProductList() {
    return (
       <>
          <div className={`w-full h-full relative `}>
-            <div className={`gap-3 flex flex-row flex-wrap`}>
+            <div className={`flex flex-row flex-wrap gap-3 `}>
                {filteredProducts.map((item: any) => (
                   <Card key={item.product_id} data={item} />
                ))}
