@@ -4,7 +4,6 @@ import React from "react";
 
 import style from "./login.module.css";
 import { useRouter } from "next/navigation";
-
 export default function Login() {
    const router = useRouter();
 
@@ -51,14 +50,19 @@ export default function Login() {
       <>
          <div className={`background bg-gray-600`}></div>
          <div className={`w-screen h-screen relative flex all-center overflow-hidden`}>
-            <div className={`flex flex-col gap-3`}>
-               <button className={`${style.buttonLogin} bg-gray-300 hover:bg-gray-400 active:bg-gray-500`} onClick={handleGuestLogin}>
-                  Login as Guest
-               </button>
-               <hr className="w-full" />
-               <button className={`${style.buttonLogin} bg-red-500 hover:bg-red-600 active:bg-red-700`} onClick={handleAdminLogin}>
-                  Login as Admin
-               </button>
+            <div className={`flex flex-col md:flex-row gap-10`}>
+               <div className={`flex flex-col gap-2 items-center `}>
+                  <button className={`${style.buttonLogin} bg-gray-500 hover:bg-gray-400 active:bg-gray-500`} onClick={handleGuestLogin}>
+                     <img className="aspect-square object-cover" src="/login/guest.svg" alt="Setting" />
+                  </button>
+                  <div className={`text-2xl font-bold`}>Guest</div>
+               </div>
+               <div className={`flex flex-col gap-2 items-center`}>
+                  <button className={`${style.buttonLogin} bg-red-500 hover:bg-red-600 active:bg-red-700`} onClick={handleAdminLogin}>
+                     <img className="aspect-square object-cover" src="/login/admin.svg" alt="Setting" />
+                  </button>
+                  <div className={`text-2xl font-bold`}>Admin</div>
+               </div>
             </div>
          </div>
       </>
